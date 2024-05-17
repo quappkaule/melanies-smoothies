@@ -2,6 +2,10 @@
 import streamlit as st
 # from snowflake.snowpark.context import get_active_session 
 from snowflake.snowpark.functions import col
+import requests
+
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+st.text(fruityvice_response)
 
 # Write directly to the app
 st.title(":cup_with_straw: Customize your Smoothie :cup_with_straw:")
@@ -29,7 +33,7 @@ if ingrdients_list:
     for ingredient_chosen in ingrdients_list:
         ingredients_string += ingredient_chosen + ' '
     
-    st.write(ingredients_string)
+    #st.write(ingredients_string)
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
             values ('""" + ingredients_string + """', '""" + name_on_order +"""')"""
